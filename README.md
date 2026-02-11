@@ -8,3 +8,5 @@
 - https://wp-cli.org/#installing
 - https://github.com/tstack/lnav/releases
 - https://github.com/bensadeh/tailspin/releases
+- https://github.com/jqlang/jq/releases
+- https://getcomposer.org/download/#manual-download
