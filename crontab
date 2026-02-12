@@ -1,7 +1,7 @@
 MAILTO=""
 SHELL="/bin/bash"
 # WP Cron
-* *  * * *  flock -n /tmp/wp-cron.lock ~/bin/run-wp-cron.sh
+* *  * * *  flock -n /tmp/wp-cron.lock /usr/local/bin/php -d mail.add_x_header=Off -d error_log= ~/public_html/wp-cron.php 2>&1 | ~/bin/ingest.php wp-cron
 # Siteprotection
 00 *  * * *  ~/bin/siteprotection.sh 2>&1 | ~/bin/ingest.php siteprotection
 # Site health
