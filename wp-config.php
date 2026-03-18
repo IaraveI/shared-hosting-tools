@@ -26,3 +26,13 @@ define('DISABLE_WP_CRON', true);
 
 // Disable fatal error handler
 if (php_sapi_name() === 'cli' && defined('DOING_CRON') && DOING_CRON) define('WP_DISABLE_FATAL_ERROR_HANDLER', true);
+
+// wp-redis: Persistent object cache
+$redis_server = [
+    'host' => '127.0.0.1',
+    'port' => 6379,
+    'auth' => 'password', // ['user', 'password'],
+    'database' => 0,
+];
+define('WP_CACHE_KEY_SALT', 'SITE-SHORT:');
+define('WP_REDIS_DEFAULT_EXPIRE_SECONDS', 86400);
