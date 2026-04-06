@@ -77,7 +77,6 @@ class ScanResult:
 class Scanner:
     CASCADE_FOLLOWUP_LIMIT = 1
     TOP_LEVEL_OUTSIDE_ROOT_LIMIT = 3
-    PARSER_BREAKOUT_SEQUENCES = ("</option></form>",)
 
     def __init__(self, text: str) -> None:
         self.text = text
@@ -311,13 +310,6 @@ class Scanner:
         self.add_general_issue(region_start, "unclosed <svg> region")
         return True
 
-    def skip_parser_breakout_sequence(self) -> bool:
-        for sequence in self.PARSER_BREAKOUT_SEQUENCES:
-            if self.startswith(sequence) and self.startswith("<form", self.pos + len(sequence)):
-                self.pos += len(sequence)
-                return True
-        return False
-
     def validate_document_structure(self) -> None:
         if not self.seen_html:
             self.top_level_issues.append(Issue(1, 1, "missing <html>"))
@@ -336,9 +328,6 @@ class Scanner:
                 continue
 
             if self.skip_svg_region():
-                continue
-
-            if self.skip_parser_breakout_sequence():
                 continue
 
             if self.startswith("<!--"):
