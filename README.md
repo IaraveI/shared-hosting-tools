@@ -59,3 +59,4 @@ hostedsite()
 - https://github.com/bensadeh/tailspin/releases
 - https://github.com/jqlang/jq/releases
 - https://getcomposer.org/download/#manual-download
+- https://www.7-zip.org/
