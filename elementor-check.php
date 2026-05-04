@@ -31,3 +31,27 @@ foreach (
     if ($status === Compatibility_Tag::COMPATIBLE) continue;
     WP_CLI::error(sprintf('%s: %s', $pluginFile, $status));
 }
+
+$upgrade = Plugin::$instance->upgrade;
+
+if ($upgrade->get_task_runner()->is_running() && $upgrade->get_task_runner()->is_process_locked()) {
+    WP_CLI::error('elementor:updater-running');
+}
+
+// wp eval '$u=\Elementor\Plugin::$instance->upgrade; $u->get_task_runner()->continue_run();'
+if ($upgrade->get_task_runner()->is_running()) {
+    WP_CLI::error('elementor:updater-queued-no-lock');
+}
+
+if (version_compare($upgrade->get_new_version(), (string) $upgrade->get_current_version(), '>')) {
+    WP_CLI::error(sprintf(
+        'elementor:upgrade-needed current=%s stored=%s',
+        $upgrade->get_new_version(),
+        $upgrade->get_current_version() ?: 'none'
+    ));
+}
+
+// wp option delete elementor_elementor_updater_completed
+if (get_option('elementor_elementor_updater_completed', false)) {
+    WP_CLI::error('elementor:completed-notice-flag');
+}
