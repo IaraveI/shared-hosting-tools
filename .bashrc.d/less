@@ -1,0 +1,1 @@
+export LESS="--chop-long-lines"

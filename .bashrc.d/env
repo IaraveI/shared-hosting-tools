@@ -1,2 +1,2 @@
-export TERM=xterm
-export LC_ALL=en_US.utf8
+export TERM="xterm"
+export LC_ALL="en_US.utf8"
